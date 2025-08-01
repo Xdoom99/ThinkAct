@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Court Case Lookup</title>
+</head>
+<body>
+    <h1>CNR Case Status Checker</h1>
+    <form method="POST">
+        <input type="text" name="cnr" placeholder="Enter CNR number" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red">{{ error }}</p>
+    {% endif %}
+
+    {% if case %}
+        <h2>Case Details</h2>
+        <ul>
+            {% for key, value in case.items() %}
+                {% if key != "Order PDF" %}
+                    <li><strong>{{ key }}:</strong> {{ value }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <p><a href="{{ case['Order PDF'] }}" target="_blank">📄 Download Order</a></p>
+    {% endif %}
+
+    <br>
+    <a href="/export">📥 Download All Logged Cases (CSV)</a>
+</body>
+</html>
